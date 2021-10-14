@@ -15,11 +15,11 @@ function unwind(request) {
 
 	if (pathname === '/short') {
 		Deno.writeTextFileSync('db.csv', Deno.readTextFileSync('db.csv') + '\n' + search);
-		event.respondWith(new Response('Success'));
+		return new Response('Success', {headers: {'content-type': 'text/plain'}});
 	}
 
 	if (pathname === '/read') {
-		event.respondWith(Deno.readTextFileSync('db.csv'), {headers: {'content-type': 'text/plain'}})
+		return new Response(Deno.readTextFileSync('db.csv'), {headers: {'content-type': 'text/plain'}});
 	}
 
 	return redirect`https://siddu.tech`;
