@@ -5,7 +5,7 @@ addEventListener('fetch', event => {
 function unwind(request) {
 	const {pathname} = new URL(request.url);
 
-	if (pathname === 'min') {
+	if (pathname === '/min') {
 		return new Response('<h1>WIP</h1>', {
 			headers: {
 				'content-type': 'text/html'
@@ -16,4 +16,4 @@ function unwind(request) {
 	return redirect`https://siddu.tech`;
 }
 
-const redirect = ([where]) => Response.redirect(where, 302)
+const redirect = ([where]) => Response.redirect(where, 302);
