@@ -3,7 +3,7 @@ addEventListener('fetch', event => {
 });
 
 function unwind(request) {
-	const {pathname} = new URL(request.url);
+	const {pathname, search} = new URL(request.url);
 
 	if (pathname === '/min') {
 		return new Response('<h1>WIP</h1>', {
@@ -11,6 +11,15 @@ function unwind(request) {
 				'content-type': 'text/html'
 			}
 		});
+	}
+
+	if (pathname === '/short') {
+		Deno.writeTextFileSync('db.csv', Deno.readTextFileSync('db.csv') + '\n' + search);
+		event.respondWith(new Response('Success'));
+	}
+
+	if (pathname === '/read') {
+		event.respondWith(Deno.readTextFileSync('db.csv'), {headers: {'content-type': 'text/plain'}})
 	}
 
 	return redirect`https://siddu.tech`;
